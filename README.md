@@ -1,11 +1,11 @@
-# React + TypeScript + Vite で構築した Admin
-
-## 環境構築
+# 環境構築
 
 1 リポジトリをクローン
 
-2 `docker-compose up -d --build` を実行
+2 `yarn install`
 
-3 [このページを確認](http://localhost:5173/)
+3 `yarn dev`
 
-4 おわり
+4 [このページを確認](http://localhost:3001/)
+
+おわり
