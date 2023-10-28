@@ -1,16 +1,10 @@
-// ** React Imports
 import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
 
-import ImageNextJS from 'next/image'
-
-// ** Next Imports
-import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-// ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
@@ -18,7 +12,7 @@ import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
@@ -27,15 +21,12 @@ import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormCo
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
-// ** Configs
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
-
-interface State {
+interface LoginFormState {
   password: string
   showPassword: boolean
 }
@@ -59,17 +50,14 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 }))
 
 const LoginPage = () => {
-  // ** State
-  const [values, setValues] = useState<State>({
+  const [values, setValues] = useState<LoginFormState>({
     password: '',
     showPassword: false
   })
 
-  // ** Hook
-  const theme = useTheme()
   const router = useRouter()
 
-  const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (prop: keyof LoginFormState) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -86,7 +74,7 @@ const LoginPage = () => {
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <ImageNextJS src='/street-icon.png' alt='logo' width={100} height={100} />
+            <Image src='/street-icon.png' alt='logo' width={120} height={100} />
           </Box>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Typography

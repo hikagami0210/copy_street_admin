@@ -1,32 +1,31 @@
-// ** MUI Imports
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableRow from "@mui/material/TableRow";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
+import { useRecoilState } from "recoil";
+import { Artist } from "src/Model/model";
+import { artistListAtom } from "src/Atoms/ArtistPageAtom";
+import { Table, TableRow } from "mdi-material-ui";
+import {
+    TableContainer,
+    Paper,
+    TableHead,
+    TableCell,
+    TableBody,
+} from "@mui/material";
+import { useLayoutEffect, useState } from "react";
+import { fetchArtistList } from "src/api/api";
 
-const createData = (
-    name: string,
-    userName: string,
-    userId: number,
-    organization: string,
-    certification: number
-) => {
-    return { name, userName, userId, organization, certification };
-};
+const AccountSettings = () => {
+    const [artistList, setArtistList] =
+        useRecoilState<Artist[]>(artistListAtom);
 
-const rows = [
-    createData("しんちゃん", "shin", 1, "神戸電子専門学校", 0),
-    createData("田川", "tagawa", 2, "神戸電子専門学校", 0),
-    createData("HIDE", "hide", 3, "神戸電子専門学校", 1),
-    createData("タガグァ", "tagawa11111", 4, "神戸電子専門学校", 0),
-    createData("ダイトウ", "ditou", 5, "神戸電子専門学校", 0),
-    createData("くわ", "kuwa-chan", 6, "神戸電子専門学校", 1),
-];
+    const [input, setInput] = useState<string | null>(null);
 
-const TableBasic = () => {
+    useLayoutEffect(() => {
+        const ArtistList = async () => {
+            const artistList = await fetchArtistList({ inputText: input });
+            setArtistList(artistList);
+        };
+        ArtistList();
+    });
+
     return (
         <TableContainer
             component={Paper}
@@ -49,7 +48,7 @@ const TableBasic = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {artistList.map((row) => (
                         <TableRow
                             key={row.name}
                             sx={{
@@ -65,8 +64,8 @@ const TableBasic = () => {
                             >
                                 {row.name}
                             </TableCell>
-                            <TableCell align="center">{row.userName}</TableCell>
-                            <TableCell align="center">{row.userId}</TableCell>
+                            <TableCell align="center">{row.username}</TableCell>
+                            <TableCell align="center">{row.id}</TableCell>
                             <TableCell align="center">
                                 {row.organization}
                             </TableCell>
@@ -81,4 +80,4 @@ const TableBasic = () => {
     );
 };
 
-export default TableBasic;
+export default AccountSettings;
